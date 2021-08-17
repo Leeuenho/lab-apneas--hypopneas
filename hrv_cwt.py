@@ -36,6 +36,8 @@ for i in range(0, len(hr)):
 time = data2['Time'].values[-1]
 a = time.split(':')
 a = list(map(int, a))
+
+
 s = a[0]*3600 + a[1]*60 + a[2]
 n = len(hr)
 fs = n/s
@@ -49,12 +51,17 @@ f = f[range(int(n/2))]
 import pywt
 import matplotlib.pyplot as plt
 
+
+#scale = center frequency / frequency
 fc = pywt.centrfrq('gaus1')
 scale = fc/f
 scale[0] = 0
 
+
+#f의 0번째 index = 0  따라서 scale의 0번째 인덱스 제거
 for i in range(1, len(scale)):
     scale[i-1] = scale[i]
+
 
 coef, freqs = pywt.cwt(hr, scale,  'gaus1')
 
